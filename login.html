@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+        }
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="app" v-cloak>
+        <custom-login />
+
+        <hr />
+        <button @click="ToggleBox">Toggle Visibility</button>
+        <div v-if="isVisible" class="box"></div>
+        <div v-else-if="isFinitely" class="box"></div>
+        <div v-else class="box"></div>
+        <!--  display: none; -->
+        <div v-show="isVisible" class="box"></div>
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+        let app = Vue.createApp({
+            data: function() {
+                return {
+                    greeting: "Hello, Vue3!",
+                    isVisible: true,
+                    isFinitely: true
+                }
+            },
+            methods: {
+                ToggleBox() {
+                    this.isVisible = !this.isVisible;
+                },
+                greet(greeting) {
+                    //alert(this.greeting);
+                    alert(greeting);
+                }
+            }
+        })
+        app.component('custom-login', {
+            template: `
+                <div>
+                    <h1>Login</h1>
+                    <input type="email" placeholder="Username" />
+                    <input type="password" placeholder="Password" />    
+                    <button>Login</button>
+                </div>
+            `,
+            data() {
+                return {
+                    title: "Login",
+                }
+            }
+        })
+        app.mount('#app')
+    </script>
+</body>
+</html>
